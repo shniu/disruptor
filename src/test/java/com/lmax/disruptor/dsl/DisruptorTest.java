@@ -103,6 +103,7 @@ public class DisruptorTest
             @Override
             public void onEvent(final TestEvent event, final long sequence, final boolean endOfBatch) throws Exception
             {
+                System.out.println("count down");
                 eventCounter.countDown();
             }
         });
@@ -125,6 +126,7 @@ public class DisruptorTest
              @Override
              public void translateTo(final TestEvent event, final long sequence)
              {
+                 event.setValue(2);
                  lastPublishedEvent = event;
              }
          });
@@ -133,6 +135,7 @@ public class DisruptorTest
         {
             fail("Did not process event published before start was called. Missed events: " + eventCounter.getCount());
         }
+        System.out.println(lastPublishedEvent);
     }
 
 
@@ -157,6 +160,7 @@ public class DisruptorTest
                 @Override
                 public void translateTo(final TestEvent event, final long sequence, Object arg)
                 {
+                    System.out.println("arg: " + arg);
                     lastPublishedEvent = event;
                 }
             },

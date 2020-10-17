@@ -19,10 +19,16 @@ import com.lmax.disruptor.EventFactory;
 
 public final class TestEvent
 {
+    private int value = 0;
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     @Override
     public String toString()
     {
-        return "Test Event";
+        return "Test Event: " + value;
     }
 
     public static final EventFactory<TestEvent> EVENT_FACTORY = new EventFactory<TestEvent>()
